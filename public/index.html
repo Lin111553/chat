@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ededed">
+  <title>小聚 · 中文聊天</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <div class="auth-screen" id="authScreen">
+    <form class="auth-card" id="authForm">
+      <div class="brand-mark">聊</div>
+      <h1>欢迎使用小聚</h1>
+      <p class="muted" id="authDescription">登录后与好友开始聊天</p>
+      <label for="username">昵称</label>
+      <input id="username" name="username" autocomplete="username" minlength="2" maxlength="24" placeholder="2–24 个中英文、数字或 _ -" required>
+      <label for="password">密码</label>
+      <input id="password" name="password" type="password" autocomplete="current-password" minlength="8" maxlength="72" placeholder="至少 8 个字符" required>
+      <div class="form-error" id="authError" role="alert"></div>
+      <button class="primary wide" id="authSubmit">登录</button>
+      <button class="link-button" type="button" id="toggleAuth">没有账号？立即注册</button>
+      <p class="safety-note">聊天消息保存在此应用服务器的数据库中。请勿发送高度敏感信息。</p>
+    </form>
+  </div>
+  <div class="app hidden" id="app">
+    <nav class="rail" aria-label="主导航">
+      <div class="my-avatar" id="myAvatar">我</div>
+      <button class="rail-button active" data-view="chats" title="聊天" aria-label="聊天">▣</button>
+      <button class="rail-button" data-view="contacts" title="联系人" aria-label="联系人">♙</button>
+      <button class="rail-button" data-view="news" title="发现" aria-label="发现">☆</button>
+      <button class="rail-button rail-bottom" id="logout" title="退出登录" aria-label="退出登录">↪</button>
+    </nav>
+    <aside class="sidebar">
+      <div class="sidebar-head">
+        <input id="search" class="search" placeholder="搜索好友昵称" aria-label="搜索好友昵称" autocomplete="off">
+        <button class="add-button" id="newChat" title="搜索用户">＋</button>
+      </div>
+      <div class="view-tabs">
+        <button class="tab active" data-view="chats">聊天</button>
+        <button class="tab" data-view="contacts">联系人</button>
+        <button class="tab" data-view="news">发现</button>
+      </div>
+      <div class="list" id="list"></div>
+      <div class="side-note">小聚 · 中文聊天</div>
+    </aside>
+    <main class="main-panel">
+      <header class="chat-header"><button id="back" class="back-button" aria-label="返回">‹</button><div><div class="chat-title" id="chatTitle">选择一个联系人</div><div class="chat-subtitle" id="chatSubtitle">消息实时发送</div></div><button id="logoutTop" class="logout-top">退出</button></header>
+      <section class="message-list" id="messageList" aria-live="polite"><div class="empty-state">搜索好友昵称，找到后即可开始聊天</div></section>
+      <form class="composer" id="messageForm"><div class="composer-tools">☻　▧　▤</div><textarea id="messageText" maxlength="4000" placeholder="选择联系人后输入消息，按 Enter 发送" aria-label="输入消息" disabled></textarea><div class="composer-bottom"><span id="statusText">消息通过服务器实时传送</span><button class="primary send-button" id="sendButton" disabled>发送</button></div></form>
+    </main>
+  </div>
+  <script src="/socket.io/socket.io.js" defer></script>
+  <script src="/app.js" defer></script>
+</body>
+</html>
